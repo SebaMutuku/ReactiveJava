@@ -23,7 +23,7 @@ dependencies {
     implementation group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '0.8.13.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc:3.0.6'
     implementation 'org.postgresql:postgresql:42.5.1'
-    implementation 'org.springframework:spring-core:5.3.27'
+//    implementation 'org.springframework:spring-core:5.3.27'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

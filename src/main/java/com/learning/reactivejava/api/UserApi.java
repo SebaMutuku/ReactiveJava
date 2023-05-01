@@ -6,6 +6,7 @@ import com.learning.reactivejava.utils.dtos.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/app/vi/users")
+@RequestMapping(value = "/app/vi/users")
+@CrossOrigin()
 public class UserApi {
 
     private final UserService userService;
@@ -27,12 +29,12 @@ public class UserApi {
 
     }
 
-    @GetMapping(value = "/findbyid/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Mono<ResponseDTO>> findUserById(@PathVariable Long userId) {
+    @GetMapping(value = "/findbyid/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Mono<ResponseDTO>> findUserById(@PathVariable(value = "userId") Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
     }
 
-    @PutMapping(value = "/updateuser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/updateuser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Mono<ResponseDTO>> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(user));
     }
