@@ -1,0 +1,11 @@
+spring:
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+  r2dbc:
+    url:  r2dbc:postgresql://localhost:5432/spring_reactive
+    password: abc
+    username: cde
+server:
+  port: 9012
