@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.learning.reactivejava.entities.Users;
+import com.learning.reactivejava.entities.User;
 import com.learning.reactivejava.repos.UserRepo;
 import java.util.function.Function;
 import org.junit.jupiter.api.Disabled;
@@ -61,18 +61,18 @@ class UserServiceTest {
     }
 
     /**
-     * Method under test: {@link UserService#updateUser(Users)}
+     * Method under test: {@link UserService#updateUser(User)}
      */
     @Test
     void testUpdateUser() {
         UserRepo userRepo = mock(UserRepo.class);
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(null);
         UserService userService = new UserService(userRepo);
-        userService.updateUser(new Users());
+        userService.updateUser(new User());
     }
 
     /**
-     * Method under test: {@link UserService#updateUser(Users)}
+     * Method under test: {@link UserService#updateUser(User)}
      */
     @Test
     void testUpdateUser2() {
@@ -82,29 +82,29 @@ class UserServiceTest {
     }
 
     /**
-     * Method under test: {@link UserService#updateUser(Users)}
+     * Method under test: {@link UserService#updateUser(User)}
      */
     @Test
     void testUpdateUser3() {
         UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.save(Mockito.<Users>any())).thenReturn(null);
+        when(userRepo.save(Mockito.<User>any())).thenReturn(null);
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(mock(Mono.class));
         UserService userService = new UserService(userRepo);
-        userService.updateUser(new Users());
+        userService.updateUser(new User());
     }
 
     /**
-     * Method under test: {@link UserService#updateUser(Users)}
+     * Method under test: {@link UserService#updateUser(User)}
      */
     @Test
     void testUpdateUser4() {
         UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.save(Mockito.<Users>any())).thenReturn(mock(Mono.class));
+        when(userRepo.save(Mockito.<User>any())).thenReturn(mock(Mono.class));
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(mock(Mono.class));
         UserService userService = new UserService(userRepo);
-        userService.updateUser(new Users());
+        userService.updateUser(new User());
         verify(userRepo).findById(Mockito.<Long>any());
-        verify(userRepo).save(Mockito.<Users>any());
+        verify(userRepo).save(Mockito.<User>any());
     }
 
     /**

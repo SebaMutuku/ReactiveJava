@@ -1,5 +1,7 @@
 package com.learning.reactivejava.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +16,13 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Builder
 @Table("users")
-public class Users {
+public class User implements Serializable {
     @Id
     private Long id;
     private String fullName;
     private String lastName;
     private String userName;
     private int age;
+    @JsonIgnore
+    private String password;
 }

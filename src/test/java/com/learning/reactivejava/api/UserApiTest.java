@@ -7,12 +7,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.learning.reactivejava.entities.Users;
+import com.learning.reactivejava.entities.User;
 import com.learning.reactivejava.repos.UserRepo;
 import com.learning.reactivejava.services.UserService;
 import com.learning.reactivejava.utils.dtos.ResponseDTO;
 import java.util.function.Function;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.reactivestreams.Publisher;
@@ -65,58 +64,58 @@ class UserApiTest {
     }
 
     /**
-     * Method under test: {@link UserApi#updateUser(Users)}
+     * Method under test: {@link UserApi#updateUser(User)}
      */
     @Test
     void testUpdateUser() {
         UserRepo userRepo = mock(UserRepo.class);
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(null);
         UserApi userApi = new UserApi(new UserService(userRepo));
-        userApi.updateUser(new Users());
+        userApi.updateUser(new User());
     }
 
     /**
-     * Method under test: {@link UserApi#updateUser(Users)}
+     * Method under test: {@link UserApi#updateUser(User)}
      */
     @Test
     void testUpdateUser2() {
         UserService userService = mock(UserService.class);
-        when(userService.updateUser(Mockito.<Users>any())).thenReturn(null);
+        when(userService.updateUser(Mockito.<User>any())).thenReturn(null);
         UserApi userApi = new UserApi(userService);
-        ResponseEntity<Mono<ResponseDTO>> actualUpdateUserResult = userApi.updateUser(new Users());
+        ResponseEntity<Mono<ResponseDTO>> actualUpdateUserResult = userApi.updateUser(new User());
         assertNull(actualUpdateUserResult.getBody());
         assertEquals(200, actualUpdateUserResult.getStatusCode().value());
         assertTrue(actualUpdateUserResult.getHeaders().isEmpty());
-        verify(userService).updateUser(Mockito.<Users>any());
+        verify(userService).updateUser(Mockito.<User>any());
     }
 
     /**
-     * Method under test: {@link UserApi#updateUser(Users)}
+     * Method under test: {@link UserApi#updateUser(User)}
      */
     @Test
     void testUpdateUser3() {
         UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.save(Mockito.<Users>any())).thenReturn(null);
+        when(userRepo.save(Mockito.<User>any())).thenReturn(null);
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(mock(Mono.class));
         UserApi userApi = new UserApi(new UserService(userRepo));
-        userApi.updateUser(new Users());
+        userApi.updateUser(new User());
     }
 
     /**
-     * Method under test: {@link UserApi#updateUser(Users)}
+     * Method under test: {@link UserApi#updateUser(User)}
      */
     @Test
     void testUpdateUser4() {
         UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.save(Mockito.<Users>any())).thenReturn(mock(Mono.class));
+        when(userRepo.save(Mockito.<User>any())).thenReturn(mock(Mono.class));
         when(userRepo.findById(Mockito.<Long>any())).thenReturn(mock(Mono.class));
         UserApi userApi = new UserApi(new UserService(userRepo));
-        ResponseEntity<Mono<ResponseDTO>> actualUpdateUserResult = userApi.updateUser(new Users());
+        ResponseEntity<Mono<ResponseDTO>> actualUpdateUserResult = userApi.updateUser(new User());
         assertTrue(actualUpdateUserResult.hasBody());
         assertTrue(actualUpdateUserResult.getHeaders().isEmpty());
         assertEquals(200, actualUpdateUserResult.getStatusCodeValue());
         verify(userRepo).findById(Mockito.<Long>any());
-        verify(userRepo).save(Mockito.<Users>any());
+        verify(userRepo).save(Mockito.<User>any());
     }
 
     /**

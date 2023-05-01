@@ -1,6 +1,6 @@
 package com.learning.reactivejava.api;
 
-import com.learning.reactivejava.entities.Users;
+import com.learning.reactivejava.entities.User;
 import com.learning.reactivejava.services.UserService;
 import com.learning.reactivejava.utils.dtos.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class UserApi {
     }
 
     @PutMapping(value = "/updateuser", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Mono<ResponseDTO>> updateUser(@RequestBody Users user) {
+    public ResponseEntity<Mono<ResponseDTO>> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(user));
     }
 
@@ -42,7 +42,7 @@ public class UserApi {
         return ResponseEntity.ok(userService.deleteUser(userId));
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/findall", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<Flux<ResponseDTO>> findAll() {
         return ResponseEntity.ok(userService.findAllUsers());
     }

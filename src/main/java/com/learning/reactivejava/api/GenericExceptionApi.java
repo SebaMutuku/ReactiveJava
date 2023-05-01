@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
-public class GenericExceptionAp {
+public class GenericExceptionApi {
 
     @ExceptionHandler(value = GenericException.class)
     public ResponseEntity<Mono<ResponseDTO>> internalSeverError(@RequestBody GenericException genericException) {
