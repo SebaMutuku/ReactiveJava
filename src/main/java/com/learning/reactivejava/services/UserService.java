@@ -26,7 +26,7 @@ public class UserService extends UserServiceImpl {
     @Override
     public Mono<ResponseDTO> findUserById(Long userId) {
         return userRepo.findById(userId)
-                .mapNotNull(u -> new ResponseDTO(u, HttpStatus.OK, "Success"))
+                .map(u -> new ResponseDTO(u, HttpStatus.OK, "Success"))
                 .switchIfEmpty(Mono.just(new ResponseDTO(null, HttpStatus.NOT_FOUND, "User not found")));
     }
 
@@ -37,8 +37,8 @@ public class UserService extends UserServiceImpl {
     }
 
     @Override
-    public Mono<ResponseDTO> updateUser(User user) {
-        return userRepo.findById(user.getId()).doOnNext(u -> {
+    public Mono<ResponseDTO> updateUser(User user,Long userId) {
+        return userRepo.findById(userId).doOnNext(u -> {
                     u.setUserName(user.getUserName());
                     u.setAge(user.getAge());
                     u.setUserName(user.getUserName());

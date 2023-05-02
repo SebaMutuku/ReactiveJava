@@ -4,8 +4,8 @@ spring:
       repositories:
         enabled: true
   r2dbc:
-    url:  r2dbc:postgresql://localhost:5432/CarfuelDB
-    password: user
-    username: password123
+    url: r2dbc:postgresql://localhost:5432/CarfuelDB
+    password: password123
+    username: user
 server:
   port: 9012

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/app/vi/users")
+@RequestMapping(value = "/app/v1/users")
 @CrossOrigin()
 public class UserApi {
 
@@ -29,14 +30,19 @@ public class UserApi {
 
     }
 
-    @GetMapping(value = "/findbyid/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Mono<ResponseDTO>> findUserById(@PathVariable(value = "userId") Long userId) {
+    @PostMapping(value = "/createUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.createUser(user));
+    }
+
+    @GetMapping(value = "/findUserById/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findUserById(@PathVariable(value = "userId") Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
     }
 
-    @PutMapping(value = "/updateuser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Mono<ResponseDTO>> updateUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUser(user));
+    @PutMapping(value = "/updateUser/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Mono<ResponseDTO>> updateUser(@RequestBody User user, @PathVariable Long userId) {
+        return ResponseEntity.ok(userService.updateUser(user,userId));
     }
 
     @DeleteMapping(value = "/deletebyid/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)

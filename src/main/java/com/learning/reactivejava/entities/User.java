@@ -18,6 +18,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("users")
 public class User implements Serializable {
     @Id
+    @JsonIgnore
     private Long id;
     private String fullName;
     private String lastName;
