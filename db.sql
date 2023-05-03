@@ -7,3 +7,6 @@ CREATE TABLE users
     lastName      VARCHAR(255) NULL,
     age     int default 0
 );
+
+create user reactiveweb;
+create database reactiveweb;
