@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface UserRepo extends ReactiveCrudRepository<User, Long> {
 
-    Mono<User> findById(Long aLong);
+    Mono<User> findById(Long userId);
     Mono<User> findByUserNameIgnoreCase(String username);
 }

@@ -9,12 +9,12 @@ import java.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-@Transactional
 public class UserService extends UserServiceImpl {
 
     private final UserRepo userRepo;
@@ -36,8 +36,9 @@ public class UserService extends UserServiceImpl {
                 .map(users -> new ResponseDTO(users, HttpStatus.OK, "success"));
     }
 
+    @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
     @Override
-    public Mono<ResponseDTO> updateUser(User user,Long userId) {
+    public Mono<ResponseDTO> updateUser(User user, Long userId) {
         return userRepo.findById(userId).doOnNext(u -> {
                     u.setUserName(user.getUserName());
                     u.setAge(user.getAge());
@@ -58,8 +59,8 @@ public class UserService extends UserServiceImpl {
     }
 
     /**
-     * @param user
      * @return ResponseDTO
+     *
      */
     @Override
     public Mono<ResponseDTO> createUser(User user) {
